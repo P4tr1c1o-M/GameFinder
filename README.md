@@ -7,21 +7,21 @@ Por esta razón, mi proyecto consiste en desarrollar un algoritmo que recomiende
 
 Considero que este proyecto es interesante, ya que muchas veces el comprar juegos no nos fijamos en muchas opciones y normalmente escogemos las que están en tendencia lo que por consecuencia nos limita de grandes posibilidades de lo que podría ser un juego popular. De igual forma este proyecto nos permite demostrar como un algoritmo puede utilizar la información proporcionada para tomar una decisión y ofrecer recomendaciones personalizadas.
 
-Algoritmo
+Algoritmo:
 
 1.	Preguntar al usuario sus preferencias:
+   
+     •	Género del videojuego
 
-•	Género del videojuego
+  	  •	Plataforma
 
-•	Plataforma
+  	  •	Nivel de dificultad
 
-•	Nivel de dificultad
-
-•	Duración aproximada
+  	  •	Duración aproximada
 
 3.	Guardar respuestas del usuario
 4.	Comparar las características que busca el usuario con los videojuegos disponibles
-5.	Asignar puntuación a cada videojuego dependiendo de la cantidad de características que coincidan con las que asigno el usuario
+5.	Comparar, para cada videojuego disponible, si su género, plataforma, nivel de dificultad y duración coinciden con las preferencias ingresadas por el usuario. Por cada característica que coincida, se asignará un punto al videojuego.
 6.	Comparar puntuaciones
 7.	Seleccionar el videojuego con mayor puntuación
 8.	Mostrar la recomendación obtenida
