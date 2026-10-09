@@ -45,16 +45,21 @@ def obtener_duracion():
     semanas = int(input(
         "¿En cuantas semanas quieres terminarlo? "
     ))
-    if (duracion < 0 or duracion > 800):
-        duracion = int(input(
+    while True:
+        if (duracion < 0 or duracion > 800):
+            duracion = int(input(
             "Dame un valor correcto para la duración: "
-        ))
-    else:
-        return duracion, semanas
+            ))
+        elif semanas <= 0:
+            semanas = int(input(
+                "Dame un valor correcto para semanas"
+            ))
+        else:
+            return duracion, semanas
 
 
-def horas(duration, semanas):
+def horas(duracion, semanas):
     """Calcula las horas invertidas por semana"""
-    horas_por_semana = duration / semanas
+    horas_por_semana = duracion / semanas
     horas_por_semana = round(horas_por_semana, 2)
     return horas_por_semana
