@@ -1,19 +1,19 @@
 PLATAFORMAS = ["Xbox", "Playstation", "Nintendo", "PC"]
-GENEROS = ["Acción", "Aventura", "RPG", 
-    "Mundo Abierto", "Deportes", "Simulación"]
+GENEROS = ["Accion", "Aventura", "RPG", 
+    "Mundo Abierto", "Deportes", "Simulacion"]
 DIFIULTADES = ["Facil", "Medio", "Dificil"]
-
 
 def obtener_genero():
     """ Pide genero del videojuego deseado """
     while True:
         genero = input(
         "¿Qué género te gustaria probar? "
-        "(Acción, Aventura, RPG, "
-        "Mundo Abierto, Deportes o Simulación) "
+        "(Accion, Aventura, RPG, "
+        "Mundo Abierto, Deportes o Simulacion) "
         )
-        if genero in GENEROS:
-            return genero
+        for opcion in GENEROS:
+            if genero.lower() == opcion.lower():
+                return opcion
 
 def obtener_plataforma():
     """Pide plataforma deseada"""
@@ -21,9 +21,9 @@ def obtener_plataforma():
         plataforma = input(
         "¿Juegas en PlayStation, Nintendo, Xbox o PC? "
         )
-        if plataforma in PLATAFORMAS:
-            return plataforma
-
+        for opcion in PLATAFORMAS:
+            if plataforma.lower() == opcion.lower():
+                return opcion
 
 def obtener_dificultad():
     """Pide dificultad deseada"""
@@ -31,10 +31,9 @@ def obtener_dificultad():
         dificultad = input(
         "¿Qué nivel de dificultad te gustaría? "
         "¿Facil, Medio, Dificil? "
-        )
+        ).capitalize()
         if dificultad in DIFIULTADES:
             return dificultad
-
 
 def obtener_duracion():
     """Pide duración deseada en un rango maximo de 800 hr"""
@@ -56,7 +55,6 @@ def obtener_duracion():
             ))
         else:
             return duracion, semanas
-
 
 def horas(duracion, semanas):
     """Calcula las horas invertidas por semana"""
