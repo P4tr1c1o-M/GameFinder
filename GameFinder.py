@@ -1,19 +1,41 @@
 PLATAFORMAS = ["Xbox", "Playstation", "Nintendo", "PC"]
+
 GENEROS = ["Accion", "Aventura", "RPG", 
     "Mundo Abierto", "Deportes", "Simulacion"]
+
 DIFIULTADES = ["Facil", "Medio", "Dificil"]
 
 VIDEOJUEGOS = [
-    ["Minecraft", "Aventura", "PC", "Facil", 30],
-    ["Forza Horizon 5", "Deportes", "Xbox", "Medio", 25],
-    ["The Witcher 3", "RPG", "Playstation", "Dificil", 100],
-    ["Super Mario Odyssey", "Aventura", "Nintendo", "Medio", 15],
-    ["Dark Souls III", "RPG", "PC", "Dificil", 40],
-    ["EA Sports FC 25", "Deportes", "Playstation", "Facil", 20],
-    ["The Legend of Zelda: Breath of the Wild", "Mundo Abierto", "Nintendo", "Medio", 50],
-    ["Halo Infinite", "Accion", "Xbox", "Medio", 20],
-    ["Cyberpunk 2077", "Mundo Abierto", "PC", "Dificil", 60],
-    ["Stardew Valley", "Simulacion", "PC", "Facil", 80]
+
+    ["Minecraft", "Aventura",
+      "PC", "Facil", 30],
+
+    ["Forza Horizon 5", "Deportes",
+      "Xbox", "Medio", 25],
+
+    ["The Witcher 3", "RPG", 
+     "Playstation", "Dificil", 100],
+
+    ["Super Mario Odyssey", "Aventura",
+      "Nintendo", "Medio", 15],
+
+    ["Dark Souls III", "RPG",
+      "PC", "Dificil", 40],
+
+    ["EA Sports FC 25", "Deportes", 
+     "Playstation", "Facil", 20],
+
+    ["The Legend of Zelda: Breath of the Wild", 
+     "Mundo Abierto", "Nintendo", "Medio", 50],
+
+    ["Halo Infinite", "Accion",
+      "Xbox", "Medio", 20],
+
+    ["Cyberpunk 2077", "Mundo Abierto",
+      "PC", "Dificil", 60],
+
+    ["Stardew Valley", "Simulacion",
+      "PC", "Facil", 80]
 ]
 
 def obtener_genero():
@@ -45,6 +67,7 @@ def obtener_dificultad():
         "¿Qué nivel de dificultad te gustaría? "
         "¿Facil, Medio, Dificil? "
         ).capitalize()
+
         if dificultad in DIFIULTADES:
             return dificultad
 
@@ -74,3 +97,31 @@ def horas(duracion, semanas):
     horas_por_semana = duracion / semanas
     horas_por_semana = round(horas_por_semana, 2)
     return horas_por_semana
+
+def suma_puntos(plataforma, genero, dificultad, duracion):
+    mejor_puntaje = 0
+    recomendados = []
+
+    for i in range(len(VIDEOJUEGOS)):
+        puntaje = 0
+
+        if plataforma == VIDEOJUEGOS[i][2]:
+            puntaje = puntaje + 3
+
+            if genero == VIDEOJUEGOS[i][1]:
+                puntaje = puntaje + 3
+
+            if dificultad == VIDEOJUEGOS[i][3]:
+                puntaje = puntaje + 2
+
+            if duracion <= VIDEOJUEGOS[i][4]:
+                puntaje = puntaje + 2
+        
+        if puntaje > mejor_puntaje:
+            recomendados = [VIDEOJUEGOS[i][0]]
+            mejor_puntaje = puntaje
+
+        elif puntaje == mejor_puntaje and puntaje > 0:
+            recomendados.append(VIDEOJUEGOS[i][0])
+
+    return recomendados
