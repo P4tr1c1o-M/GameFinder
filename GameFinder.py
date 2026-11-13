@@ -101,6 +101,7 @@ def horas(duracion, semanas):
 def suma_puntos(plataforma, genero, dificultad, duracion):
     mejor_puntaje = 0
     recomendados = []
+    duracion_juego = []
 
     for i in range(len(VIDEOJUEGOS)):
         puntaje = 0
@@ -119,9 +120,40 @@ def suma_puntos(plataforma, genero, dificultad, duracion):
         
         if puntaje > mejor_puntaje:
             recomendados = [VIDEOJUEGOS[i][0]]
+            duracion_juego = [VIDEOJUEGOS[i][4]]
             mejor_puntaje = puntaje
 
         elif puntaje == mejor_puntaje and puntaje > 0:
             recomendados.append(VIDEOJUEGOS[i][0])
+            duracion_juego.append(VIDEOJUEGOS[i][4])
 
-    return recomendados
+    return recomendados, duracion_juego
+
+def preparar_datos(juegos_recomendados):
+    juego = ""
+    horas = ""
+    resultado = "Tus videojuegos recomendados son:\n\n"
+    if len(juegos_recomendados[0]) >= 2:
+        juego = "\n".join(juegos_recomendados[0])
+        horas = (
+            "\n".join(str(x) for x in juegos_recomendados[1])
+        )
+
+    else:
+        juego = (
+            " ".join(juegos_recomendados[0])
+        )
+
+        for i in juegos_recomendados[1]:
+            horas = "".join(str(i))
+
+    if len(juegos_recomendados[0]) >= 2:
+        for i in range(len(juegos_recomendados[0])):
+            resultado = resultado + (
+                juego.split("\n")[i] + " - " +
+                horas.split("\n")[i] + " horas\n"
+            )
+    else:
+        resultado = resultado + juego + " - " + horas + " horas"
+
+    return resultado
