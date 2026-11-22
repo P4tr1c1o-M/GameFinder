@@ -19,11 +19,11 @@ Algoritmo:
 
   	  •	Duración aproximada
 
-3.	Guardar respuestas del usuario
-4.	Comparar las características que busca el usuario con los videojuegos disponibles
+3.	Guardar respuestas del usuario.
+4.	Comparar las características que busca el usuario con los videojuegos disponibles.
 5.	Comparar, para cada videojuego disponible, si su género, plataforma, nivel de dificultad y duración coinciden con las preferencias ingresadas por el usuario. Por cada característica que coincida, se asignará un punto al videojuego.
-6.	Comparar puntuaciones
-7.	Seleccionar el videojuego con mayor puntuación
-8.	Mostrar la recomendación obtenida
-9.	Preguntar si se desea hacer otra consulta
+6.	Comparar puntuaciones.
+7.	Seleccionar videojuegos con la mejor puntuación.
+8.	Mostrar recomendaciones obtenidas.
+9.	Preguntar si se desea hacer otra consulta.
 10.	Si la respuesta es sí regresar al inicio. Si la respuesta es no, finalizar el programa.
