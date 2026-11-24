@@ -3,40 +3,23 @@ PLATAFORMAS = ["Xbox", "Playstation", "Nintendo", "PC"]
 GENEROS = ["Accion", "Aventura", "RPG", 
     "Mundo Abierto", "Deportes", "Simulacion"]
 
-DIFIULTADES = ["Facil", "Medio", "Dificil"]
+DIFICULTADES = ["Facil", "Medio", "Dificil"]
 
-VIDEOJUEGOS = [
 
-    ["Minecraft", "Aventura",
-      "PC", "Facil", 30],
+def crea_matriz_videojuegos(juegos):
+    videojuegos = []
+    f = open(juegos, "r")
 
-    ["Forza Horizon 5", "Deportes",
-      "Xbox", "Medio", 25],
+    for linea in f:
+        if "\n"  in linea:
+            linea = linea.strip("\n")
+        linea = linea.split(", ")
+        linea[4] = int(linea[4])
+        videojuegos.append(linea)
 
-    ["The Witcher 3", "RPG", 
-     "Playstation", "Dificil", 100],
+    f.close()
 
-    ["Super Mario Odyssey", "Aventura",
-      "Nintendo", "Medio", 15],
-
-    ["Dark Souls III", "RPG",
-      "PC", "Dificil", 40],
-
-    ["EA Sports FC 25", "Deportes", 
-     "Playstation", "Facil", 20],
-
-    ["The Legend of Zelda: Breath of the Wild", 
-     "Mundo Abierto", "Nintendo", "Medio", 50],
-
-    ["Halo Infinite", "Accion",
-      "Xbox", "Medio", 20],
-
-    ["Cyberpunk 2077", "Mundo Abierto",
-      "PC", "Dificil", 60],
-
-    ["Stardew Valley", "Simulacion",
-      "PC", "Facil", 80]
-]
+    return videojuegos
 
 def obtener_genero():
     """ Pide genero del videojuego deseado """
@@ -68,7 +51,7 @@ def obtener_dificultad():
         "¿Facil, Medio, Dificil? "
         ).capitalize()
 
-        if dificultad in DIFIULTADES:
+        if dificultad in DIFICULTADES:
             return dificultad
 
 def obtener_duracion():
@@ -78,16 +61,16 @@ def obtener_duracion():
     "dedicarle (horas)? "
     ))
     semanas = int(input(
-        "¿En cuantas semanas quieres terminarlo? "
+    "¿En cuantas semanas quieres terminarlo? "
     ))
     while True:
         if (duracion < 0 or duracion > 800):
-            duracion = int(input(
-            "Dame un valor correcto para la duración: "
-            ))
+                duracion = int(input(
+                "Dame un valor correcto para la duración: "
+                ))
         elif semanas <= 0:
             semanas = int(input(
-                "Dame un valor correcto para semanas"
+            "Dame un valor correcto para semanas"
             ))
         else:
             return duracion, semanas
@@ -98,41 +81,44 @@ def horas(duracion, semanas):
     horas_por_semana = round(horas_por_semana, 2)
     return horas_por_semana
 
-def suma_puntos(plataforma, genero, dificultad, duracion):
+def suma_puntos(plataforma, genero, dificultad, 
+    duracion, videojuegos):
+    """ Función para sumar puntos y obtener los juegos recomendados """
     mejor_puntaje = 0
     recomendados = []
     duracion_juego = []
 
-    for i in range(len(VIDEOJUEGOS)):
+    for i in range(len(videojuegos)):
         puntaje = 0
 
-        if plataforma == VIDEOJUEGOS[i][2]:
+        if plataforma == videojuegos[i][2]:
             puntaje = puntaje + 3
 
-            if genero == VIDEOJUEGOS[i][1]:
+            if genero == videojuegos[i][1]:
                 puntaje = puntaje + 3
 
-            if dificultad == VIDEOJUEGOS[i][3]:
+            if dificultad == videojuegos[i][3]:
                 puntaje = puntaje + 2
 
-            if duracion <= VIDEOJUEGOS[i][4]:
+            if duracion >= videojuegos[i][4]:
                 puntaje = puntaje + 2
         
         if puntaje > mejor_puntaje:
-            recomendados = [VIDEOJUEGOS[i][0]]
-            duracion_juego = [VIDEOJUEGOS[i][4]]
+            recomendados = [videojuegos[i][0]]
+            duracion_juego = [videojuegos[i][4]]
             mejor_puntaje = puntaje
 
         elif puntaje == mejor_puntaje and puntaje > 0:
-            recomendados.append(VIDEOJUEGOS[i][0])
-            duracion_juego.append(VIDEOJUEGOS[i][4])
+            recomendados.append(videojuegos[i][0])
+            duracion_juego.append(videojuegos[i][4])
 
     return recomendados, duracion_juego
 
 def preparar_datos(juegos_recomendados):
+    """Prepara los datos para mostrar en consola"""
     juego = ""
     horas = ""
-    resultado = "Tus videojuegos recomendados son:\n\n"
+    resultado = "Tus videojuegos recomendados son:\n"
     if len(juegos_recomendados[0]) >= 2:
         juego = "\n".join(juegos_recomendados[0])
         horas = (
@@ -157,3 +143,26 @@ def preparar_datos(juegos_recomendados):
         resultado = resultado + juego + " - " + horas + " horas"
 
     return resultado
+
+"""Main"""
+consulta = "si"
+
+while consulta == "si":
+    videojuegos = crea_matriz_videojuegos("Juegos.txt")
+    plataforma = obtener_plataforma()
+    genero = obtener_genero()
+    dificultad = obtener_dificultad()
+    duracion = obtener_duracion()
+    semanas = duracion[1]
+    duracion = duracion[0]
+    juegos_recomendados = (
+    suma_puntos(plataforma, genero, dificultad, duracion, videojuegos)
+    )
+    print(preparar_datos(juegos_recomendados))
+
+    consulta = input("¿Deseas hacer otra consulta? "
+        ).capitalize().lower()
+
+    
+
+print("Gracias por utilizar GameFinder")
