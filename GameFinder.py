@@ -75,7 +75,7 @@ def obtener_duracion():
         else:
             return duracion, semanas
 
-def horas(duracion, semanas):
+def horas_por_semana(duracion, semanas):
     """Calcula las horas invertidas por semana"""
     horas_por_semana = duracion / semanas
     horas_por_semana = round(horas_por_semana, 2)
@@ -90,7 +90,7 @@ def suma_puntos(plataforma, genero, dificultad,
 
     for i in range(len(videojuegos)):
         puntaje = 0
-
+        """Precedencia en plataforma"""
         if plataforma == videojuegos[i][2]:
             puntaje = puntaje + 3
 
@@ -114,11 +114,12 @@ def suma_puntos(plataforma, genero, dificultad,
 
     return recomendados, duracion_juego
 
-def preparar_datos(juegos_recomendados):
+def preparar_datos(juegos_recomendados, semanas):
     """Prepara los datos para mostrar en consola"""
     juego = ""
     horas = ""
     resultado = "Tus videojuegos recomendados son:\n"
+
     if len(juegos_recomendados[0]) >= 2:
         juego = "\n".join(juegos_recomendados[0])
         horas = (
@@ -137,16 +138,23 @@ def preparar_datos(juegos_recomendados):
         for i in range(len(juegos_recomendados[0])):
             resultado = resultado + (
                 juego.split("\n")[i] + " - " +
-                horas.split("\n")[i] + " horas\n"
+                horas.split("\n")[i] + " horas" + " " + "(" +
+                str((horas_por_semana(juegos_recomendados[1][i], semanas)))
+                + " " + "horas por semana" + ")\n"
             )
     else:
-        resultado = resultado + juego + " - " + horas + " horas"
+        resultado = (
+            resultado + juego + " - " + horas + " horas" + " " + "(" +
+            str((horas_por_semana(juegos_recomendados[1][0], semanas)))
+            + " horas por semana" + ")\n"
+        )
 
     return resultado
 
-"""Main"""
+"""Llamado de funciones"""
 consulta = "si"
 
+"""Ciclo para realizar las consulta que quiera el usuario"""
 while consulta == "si":
     videojuegos = crea_matriz_videojuegos("Juegos.txt")
     plataforma = obtener_plataforma()
@@ -158,11 +166,11 @@ while consulta == "si":
     juegos_recomendados = (
     suma_puntos(plataforma, genero, dificultad, duracion, videojuegos)
     )
-    print(preparar_datos(juegos_recomendados))
+    print(preparar_datos(juegos_recomendados, semanas))
 
-    consulta = input("¿Deseas hacer otra consulta? "
-        ).capitalize().lower()
+    consulta = input(
+        "¿Deseas hacer otra consulta? (si/no) "
+    ).lower()
 
-    
-
-print("Gracias por utilizar GameFinder")
+"""Cierre del ciclo"""
+print("\nGracias por utilizar GameFinder")
